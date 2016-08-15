@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset=utf-8>
+  <link rel="stylesheet" type="text/css"  href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+  <title>Angular Practice</title>
+  <style >
+    input {
+        width: 250px;
+    }
+  </style>
+</head>
+<body ng-app="ngFun">
+  <div ng-controller="PokemonController">
+
+    <div class="container">
+
+      <h2>Trainer: {{trainer.name}}</h2>
+      <p>Enter your name:</p>
+      <input ng-model="trainer.name" ng-init="trainer.name='Ash'" type="text" name="name" />
+      <br/>
+      <div class="well" style="margin-top:20px;">
+          <input type="text" class="search" ng-model="searchKeyword" placeholder="Enter your search terms" />
+      </div>
+
+
+      <div class="col-md-6">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Ndex</th>
+              <th>Name</th>
+              <th>Type</th>
+              <th>Nemesis</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="pokemon in pokemons | filter: searchKeyword ">
+              <td>{{pokemon.Ndex}}</td>
+              <td ng-hide="editorEnabled">
+                {{pokemon.name}}
+
+                <a href="" ng-click="enableEditor()">Edit</a>
+              </td>
+              <td ng-show="editorEnabled">
+                  <input ng-model="editableField" ng-show="editorEnabled">
+                  <a href="#" ng-click="save()">Save</a>
+                  or
+                  <a href="#" ng-click="disableEditor()">cancel</a>.
+              </td>
+              <td>j{{pokemon.type}}</td>
+              <td>{{pokemon.name | reverse }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <h3>Add a new Pokemon</h3>
+        <form class="form-horizontal ng-valid ng-dirty" role="form" ng-submit="addRow()">
+          <div class="form-group">
+            <label class="col-md-2 control-label">Ndex</label>
+            <div class="col-md-4">
+              <input type="text" name="name" class="form-control ng-valid ng-dirty" ng-model="Ndex" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">Name</label>
+            <div class="col-md-4">
+              <input type="text" name="name" class="form-control ng-valid ng-dirty" ng-model="name" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-2 control-label">Type</label>
+            <div class="col-md-4">
+              <input type="text" name="name" class="form-control ng-valid ng-dirty" ng-model="type" />
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="submit" value="submit" class="btn btn-primary" />
+          </div>
+        </form>
+      </div>
+
+      <h3>{{catchPhrase.toUpperCase()}}</h3>
+    </div>
+  </div>
+<script src="bower_components/angular/angular.min.js"></script>
+
+<script src="app.js"></script>
+</body>
+</html>
